@@ -42,8 +42,9 @@ PORT=5000
 MONGO_DB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 NODE_ENV=development
+```
 
-###  💻 Run Locally
+## 💻 Run Locally
 
 git clone https://github.com/ayushkumar0808/real-time-chat-app.git
 cd real-time-chat-app
