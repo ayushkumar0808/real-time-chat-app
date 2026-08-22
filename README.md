@@ -46,13 +46,13 @@ NODE_ENV=development
 
 ## 💻 Run Locally
 
-git clone https://github.com/ayushkumar0808/real-time-chat-app.git
-cd real-time-chat-app
-npm install
-cd frontend
-npm install
-cd ..
-npm run dev
+-git clone https://github.com/ayushkumar0808/real-time-chat-app.git
+-cd real-time-chat-app
+-npm install
+-cd frontend
+-npm install
+-cd ..
+-npm run dev
 
 ## 👨‍💻 Author
 
