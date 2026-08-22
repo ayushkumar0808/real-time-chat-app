@@ -1,6 +1,6 @@
 # Real-Time Chat Application
 
-**Live Demo:** [https://real-time-chat-app-rq6r.onrender.com](https://real-time-chat-app-rq6r.onrender.com)
+**Live Demo:** 
 
 ## Overview
 This project is a real-time chat application built with the MERN stack (MongoDB, Express, React, Node.js), Socket.io for real-time communication, and styled with TailwindCSS and DaisyUI. It features authentication, authorization, online user status, global state management, and robust error handling.
