@@ -14,10 +14,12 @@ const useGetConversations = () => {
           credentials: "include",
         });
         const data = await res.json();
+
         if (data.error) {
           throw new Error(data.error);
         }
-        setConversations(data);
+
+        setConversations(Array.isArray(data) ? data : []);
       } catch (error) {
         toast.error(error.message);
       } finally {
