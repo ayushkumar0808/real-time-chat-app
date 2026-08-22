@@ -1,13 +1,15 @@
 import { useState } from "react";
 import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
-import API_URL from "../api/api";
+import API_URL, { getAuthHeaders } from "../api/api";
 
 const useSendMessage = () => {
 	const [loading, setLoading] = useState(false);
-	const { setMessages, selectedConversation } = useConversation();
+	const { messages, setMessages, selectedConversation } = useConversation();
 
 	const sendMessage = async (message) => {
+		if (!selectedConversation?._id) return;
+
 		setLoading(true);
 
 		try {
@@ -15,10 +17,7 @@ const useSendMessage = () => {
 				`${API_URL}/api/messages/send/${selectedConversation._id}`,
 				{
 					method: "POST",
-					credentials: "include",
-					headers: {
-						"Content-Type": "application/json",
-					},
+					headers: getAuthHeaders(),
 					body: JSON.stringify({ message }),
 				}
 			);
@@ -29,7 +28,7 @@ const useSendMessage = () => {
 				throw new Error(data.error);
 			}
 
-			setMessages((prevMessages) => [...prevMessages, data]);
+			setMessages([...messages, data]);
 		} catch (error) {
 			toast.error(error.message);
 		} finally {

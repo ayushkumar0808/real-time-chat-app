@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useConversation from "../zustand/useConversation";
 import toast from "react-hot-toast";
-import API_URL from "../api/api";
+import API_URL, { getAuthHeaders } from "../api/api";
 
 const useGetMessages = () => {
 	const [loading, setLoading] = useState(false);
@@ -15,7 +15,8 @@ const useGetMessages = () => {
 				const res = await fetch(
 					`${API_URL}/api/messages/${selectedConversation._id}`,
 					{
-						credentials: "include",
+						method: "GET",
+						headers: getAuthHeaders(),
 					}
 				);
 
@@ -28,7 +29,6 @@ const useGetMessages = () => {
 				setMessages(Array.isArray(data) ? data : []);
 			} catch (error) {
 				toast.error(error.message);
-				setMessages([]);
 			} finally {
 				setLoading(false);
 			}
