@@ -9,9 +9,14 @@ const useConversation = create((set) => ({
 	messages: [],
 
 	setMessages: (messages) =>
-		set({
-			messages: Array.isArray(messages) ? messages : [],
-		}),
+		set((state) => ({
+			messages:
+				typeof messages === "function"
+					? messages(state.messages)
+					: Array.isArray(messages)
+					? messages
+					: [],
+		})),
 }));
 
 export default useConversation;
