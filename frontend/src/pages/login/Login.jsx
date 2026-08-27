@@ -24,11 +24,11 @@ const Login = () => {
 				<form onSubmit={handleSubmit}>
 					<div>
 						<label className='label p-2'>
-							<span className='text-base label-text'>Username</span>
+							<span className='text-base label-text'>Enter Username</span>
 						</label>
 						<input
 							type='text'
-							placeholder='Enter username'
+							placeholder='Your username'
 							className='w-full input input-bordered h-10'
 							value={username}
 							onChange={(e) => setUsername(e.target.value)}
@@ -37,11 +37,11 @@ const Login = () => {
 
 					<div>
 						<label className='label'>
-							<span className='text-base label-text'>Password</span>
+							<span className='text-base label-text'>Enter Password</span>
 						</label>
 						<input
 							type='password'
-							placeholder='Enter Password'
+							placeholder='Your Password'
 							className='w-full input input-bordered h-10'
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
