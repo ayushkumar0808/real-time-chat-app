@@ -3,7 +3,6 @@ import http from "http";
 import express from "express";
 
 const app = express();
-
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -17,19 +16,22 @@ const io = new Server(server, {
   },
 });
 
-export const getReceiverSocketId = (receiverId) => {
-  return userSocketMap[receiverId];
-};
+const userSocketMap = {}; // {userId: [socketId1, socketId2, ...]}
 
-const userSocketMap = {};
+export const getReceiverSocketId = (receiverId) => {
+  return userSocketMap[receiverId]; // ab ye array return karega (ya undefined)
+};
 
 io.on("connection", (socket) => {
   console.log("a user connected", socket.id);
 
   const userId = socket.handshake.query.userId;
 
-  if (userId != "undefined") {
-    userSocketMap[userId] = socket.id;
+  if (userId && userId !== "undefined") {
+    if (!userSocketMap[userId]) {
+      userSocketMap[userId] = [];
+    }
+    userSocketMap[userId].push(socket.id);
   }
 
   io.emit("getOnlineUsers", Object.keys(userSocketMap));
@@ -37,7 +39,14 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("user disconnected", socket.id);
 
-    delete userSocketMap[userId];
+    if (userId && userSocketMap[userId]) {
+      userSocketMap[userId] = userSocketMap[userId].filter(
+        (id) => id !== socket.id,
+      );
+      if (userSocketMap[userId].length === 0) {
+        delete userSocketMap[userId];
+      }
+    }
 
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });
